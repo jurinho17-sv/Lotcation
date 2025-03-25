@@ -4,7 +4,7 @@
 
 ## Problem Statement
 
-Finding parking in busy urban areas can be stressful and distracting for drivers. Most parking apps require too much interaction, creating safety risks while driving. Lotcation solves this problem by providing a streamlined, minimal-touch interface designed specifically for use while on the road.
+Finding parking in busy urban areas can be stressful and distracting for drivers. Most parking apps require too much interaction, creating safety risks while driving. I hope this app can solve this problem by providing a streamlined, minimal-touch interface designed specifically for use while on the road.
 
 ## Technical Details
 
