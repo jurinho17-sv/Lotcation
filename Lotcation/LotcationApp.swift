@@ -1,17 +1,29 @@
-//
-//  LotcationApp.swift
-//  Lotcation
-//
-//  Created by Justin Kim on 3/21/25.
-//
-
 import SwiftUI
 
 @main
 struct LotcationApp: App {
+    @State private var showSplash = true
+    
+    init() {
+        // Print available fonts for debugging (optional)
+        #if DEBUG
+        print("Available fonts:")
+        for family in UIFont.familyNames.sorted() {
+            print("Font family: \(family)")
+            for name in UIFont.fontNames(forFamilyName: family) {
+                print("   \(name)")
+            }
+        }
+        #endif
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if showSplash {
+                SplashScreenView(showSplash: $showSplash)
+            } else {
+                ContentView()
+            }
         }
     }
 }

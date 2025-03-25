@@ -29,9 +29,22 @@
 		3F21D7442D8E3DBE0022688C /* LotcationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LotcationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		3F21D7602D8F84CB0022688C /* Exceptions for "Lotcation" folder in "Lotcation" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 3F21D7292D8E3DBD0022688C /* Lotcation */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3F21D72C2D8E3DBD0022688C /* Lotcation */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				3F21D7602D8F84CB0022688C /* Exceptions for "Lotcation" folder in "Lotcation" target */,
+			);
 			path = Lotcation;
 			sourceTree = "<group>";
 		};
@@ -398,6 +411,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Lotcation/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Lotcation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -426,6 +440,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Lotcation/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Lotcation/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
