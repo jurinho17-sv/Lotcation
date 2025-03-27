@@ -13,11 +13,6 @@ import UIKit
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
-        /**
-         // Initialize Google Maps and Places with your API key
-         GMSServices.provideAPIKey("AIzaSyBZKfGsXD5w1zgBMdFFoK4mUno3Fn4_ASw")
-         GMSPlacesClient.provideAPIKey("AIzaSyBZKfGsXD5w1zgBMdFFoK4mUno3Fn4_ASw")
-         */
         
         // initialize app settings or configurations
         print("Lotcation starting up!")

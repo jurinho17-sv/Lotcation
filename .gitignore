@@ -1,0 +1,8 @@
+# API Keys Configuration
+Config/APIKeys.xcconfig
+
+# Xcode
+*.xcodeproj
+*.xcworkspace
+xcuserdata/
+
