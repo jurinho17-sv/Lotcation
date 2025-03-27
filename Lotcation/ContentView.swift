@@ -1,8 +1,23 @@
 import SwiftUI
+import GoogleSignIn
+import CoreLocation
+import MapKit
 
 struct ContentView: View {
-    // Add state to store user name
-    @State private var userName: String = "User" // Default value until we get actual name
+    // Authentication manager to handle Google Sign-in
+    @StateObject private var authManager = AuthenticationManager()
+    
+    // Location manager to handle user location
+    @StateObject private var locationManager = LocationManager()
+    
+    // User name from Google Sign-in or default value
+    @State private var userName: String = UserDefaults.standard.string(forKey: "userName") ?? "User"
+    
+    // Add state for location permission alert
+    @State private var showLocationAlert = false
+    
+    // Add state for navigation
+    @State private var showingParkingLocations = false
     
     // Font sizes
     let titleSize: CGFloat = 32
@@ -39,7 +54,7 @@ struct ContentView: View {
         let hour = Calendar.current.component(.hour, from: Date())
         
         if hour >= 22 || hour < 5 {
-            return "Go to bed :), \(userName)"
+            return "Drive safely, \(userName)"
         }
         // Early morning
         else if hour >= 5 && hour < 7 {
@@ -51,7 +66,7 @@ struct ContentView: View {
         }
         // Standard morning
         else if hour < 12 {
-            return "Good morning :), \(userName)"
+            return "Good morning, \(userName)"
         }
         // Lunch time
         else if hour == 12 {
@@ -67,7 +82,7 @@ struct ContentView: View {
         }
         // Standard evening
         else {
-            return "Good evening :), \(userName)"
+            return "Good evening, \(userName)"
         }
     }
     
@@ -78,78 +93,217 @@ struct ContentView: View {
                 Color(hex: "fffc00")
                     .ignoresSafeArea()
                 
-                VStack(spacing: 20) {
-                    // App title
-                    Text("Lotcation")
-                        .font(.custom("Noto Sans", size: titleSize).bold())
-                        .foregroundColor(.black)
-                    
-                    // Greeting section with two separate lines
-                    VStack(spacing: 5) {
-                        // Day-specific message on top - USING WINKY SANS FONT
-                        Text(dayMessage)
-                            .font(.custom("WinkySans-Regular", size: headingSize))
-                            .foregroundColor(.black)
-                            .multilineTextAlignment(.center)
-                        
-                        // Time-based message below - USING WINKY SANS FONT
-                        Text(timeMessage)
-                            .font(.custom("WinkySans-Regular", size: headingSize))
-                            .foregroundColor(.black)
-                            .multilineTextAlignment(.center)
-                    }
-                    .frame(width: geometry.size.width * 0.9)
-                    .padding(.bottom, 30)
-                    
-                    // Find parking button (Feature #1 from requirements)
-                    // Height increased by 10%, text size increased by 40%
-                    Button(action: {
-                        // Find nearby parking action
-                        print("Finding nearby parking...")
-                    }) {
-                        Text("Find Lotcations")
-                            .font(.custom("Noto Sans", size: buttonTextSize).bold())
-                            .foregroundColor(.black)
-                            .frame(width: geometry.size.width * 0.85, height: 198) // Increased by 10% from 180
-                            .background(Color.white)
-                            .cornerRadius(10)
-                    }
-                    .padding(.bottom, 20)
-                    
-                    // Emergency parking button (Feature #7 from requirements)
-                    // Height increased by 10%, text size increased by 40%, renamed button
-                    Button(action: {
-                        // Park now action
-                        print("Finding immediate parking...")
-                    }) {
-                        Text("Immediate Parking")
-                            .font(.custom("Noto Sans", size: buttonTextSize).bold())
-                            .foregroundColor(.white)
-                            .frame(width: geometry.size.width * 0.85, height: 198) // Increased by 10% from 180
-                            .background(Color.black)
-                            .cornerRadius(10)
-                    }
-                    
-                    Spacer()
-                    
-                    // Recent parking history placeholder
-                    VStack(alignment: .leading, spacing: 5) {
-                        Text("Recent Parking")
-                            .font(.custom("Noto Sans", size: headingSize).bold())
-                            .foregroundColor(.white)
-                        
-                        Text("No recent parking locations")
-                            .font(.custom("Noto Sans", size: bodySize))
-                            .foregroundColor(.white.opacity(0.8))
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                    .background(Color.black.opacity(0.2))
-                    .cornerRadius(10)
-                    .padding(.horizontal)
+                // Content based on authentication state
+                if authManager.isAuthenticated {
+                    // Main app content for authenticated users
+                    authenticatedContent(geometry: geometry)
+                } else {
+                    // Sign-in screen for unauthenticated users
+                    unauthenticatedContent(geometry: geometry)
                 }
-                .padding()
             }
         }
+        .onAppear {
+            // Update userName when the view appears
+            self.userName = UserDefaults.standard.string(forKey: "userName") ?? "User"
+            
+            // Add observer for changes to UserDefaults
+            NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: .main) { _ in
+                self.userName = UserDefaults.standard.string(forKey: "userName") ?? "User"
+            }
+            
+            // Request location permission when the view appears
+            locationManager.requestLocationPermission()
+        }
+        .alert(isPresented: $showLocationAlert) {
+            Alert(
+                title: Text("Location Access Required"),
+                message: Text("Lotcation needs access to your location to find nearby parking. Please grant permission in Settings."),
+                primaryButton: .default(Text("Open Settings"), action: {
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                }),
+                secondaryButton: .cancel()
+            )
+        }
+        .fullScreenCover(isPresented: $showingParkingLocations) {
+            ParkingLocationsView(locationManager: locationManager)
+        }
+    }
+    
+    // Authenticated user view
+    private func authenticatedContent(geometry: GeometryProxy) -> some View {
+        VStack(spacing: 20) {
+            // App title
+            Text("Lotcation")
+                .font(.custom("Noto Sans", size: titleSize).bold())
+                .foregroundColor(.black)
+            
+            // Greeting section with two separate lines
+            VStack(spacing: 5) {
+                // Day-specific message on top - USING WINKY SANS FONT
+                Text(dayMessage)
+                    .font(.custom("WinkySans-Regular", size: headingSize))
+                    .foregroundColor(.black)
+                    .multilineTextAlignment(.center)
+                
+                // Time-based message below - USING WINKY SANS FONT
+                Text(timeMessage)
+                    .font(.custom("WinkySans-Regular", size: headingSize))
+                    .foregroundColor(.black)
+                    .multilineTextAlignment(.center)
+            }
+            .frame(width: geometry.size.width * 0.9)
+            .padding(.bottom, 30)
+            
+            
+            // Find parking button with location status
+            Button(action: {
+                if locationManager.isAuthorized {
+                    // Present parking locations screen
+                    showingParkingLocations = true
+                } else {
+                    // Show alert if location permissions aren't granted
+                    showLocationAlert = true
+                }
+            }) {
+                VStack {
+                    Text("Find Lotcations")
+                        .font(.custom("Noto Sans", size: buttonTextSize).bold())
+                        .foregroundColor(.black)
+                    
+                    // Location status indicator
+                    if locationManager.authorizationStatus == .notDetermined {
+                        Text("Location: Not requested")
+                            .font(.custom("Noto Sans", size: 14))
+                            .foregroundColor(.gray)
+                    } else if locationManager.isAuthorized {
+                        Text("Location: Available")
+                            .font(.custom("Noto Sans", size: 14))
+                            .foregroundColor(.green)
+                    } else {
+                        Text("Location: Permission denied")
+                            .font(.custom("Noto Sans", size: 14))
+                            .foregroundColor(.red)
+                    }
+                }
+                .frame(width: geometry.size.width * 0.85, height: 198) // Increased by 10% from 180
+                .background(Color.white)
+                .cornerRadius(10)
+            }
+            .padding(.bottom, 20)
+            
+            // Emergency parking button (Feature #7 from my plan)
+            /**
+            Button(action: {
+                if locationManager.isAuthorized {
+                    // Find immediate parking action
+                    print("Finding immediate parking at: \(locationManager.location?.coordinate ?? CLLocationCoordinate2D())")
+                } else {
+                    // Show alert if location permissions aren't granted
+                    showLocationAlert = true
+                }
+            }) {
+             */
+            
+            Button(action: {
+                if locationManager.isAuthorized {
+                    // For immediate parking, find the closest available spot
+                    if let userLocation = locationManager.location {
+                        let mockService = MockParkingService()
+                        
+                        // Find closest spot
+                        if let closestLocation = mockService.getClosestParkingLocation(to: userLocation) {
+                            // Open Maps for immediate navigation to closest spot
+                            let coordinate = closestLocation.coordinates
+                            let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
+                            mapItem.name = closestLocation.name
+                            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+                        } else {
+                            // Fallback to showing all options if we couldn't find a closest spot
+                            showingParkingLocations = true
+                        }
+                    } else {
+                        // No location available, just show options
+                        showingParkingLocations = true
+                    }
+                } else {
+                    // Show alert if location permissions aren't granted
+                    showLocationAlert = true
+                }
+            }) {
+                Text("Immediate Parking")
+                    .font(.custom("Noto Sans", size: buttonTextSize).bold())
+                    .foregroundColor(.white)
+                    .frame(width: geometry.size.width * 0.85, height: 198)
+                    .background(Color.black)
+                    .cornerRadius(10)
+            }
+            
+            Spacer()
+            
+            // Recent parking history placeholder
+            VStack(alignment: .leading, spacing: 5) {
+                Text("Recent Parking")
+                    .font(.custom("Noto Sans", size: headingSize).bold())
+                    .foregroundColor(.white)
+                
+                Text("No recent parking locations")
+                    .font(.custom("Noto Sans", size: bodySize))
+                    .foregroundColor(.white.opacity(0.8))
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
+            .background(Color.black.opacity(0.2))
+            .cornerRadius(10)
+            .padding(.horizontal)
+            
+            // Sign Out button
+            Button(action: {
+                authManager.signOut()
+            }) {
+                Text("Sign Out")
+                    .font(.custom("Noto Sans", size: 16))
+                    .foregroundColor(.blue)
+                    .padding(.vertical, 8)
+            }
+            .padding(.bottom, 16)
+        }
+        .padding()
+    }
+    
+    // Unauthenticated user view (sign-in screen)
+    private func unauthenticatedContent(geometry: GeometryProxy) -> some View {
+        VStack(spacing: 40) {
+            // App title
+            Text("Lotcation")
+                .font(.custom("Noto Sans", size: titleSize).bold())
+                .foregroundColor(.black)
+                .padding(.top, 80)
+            
+            // App description
+            Text("Find parking spaces quickly and safely with minimal interaction while driving")
+                .font(.custom("Noto Sans", size: bodySize))
+                .foregroundColor(.black)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 32)
+            
+            Spacer()
+            
+            // App icon or illustration (placeholder)
+            Image(systemName: "car.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 120, height: 120)
+                .foregroundColor(.black)
+            
+            Spacer()
+            
+            // Sign-in button
+            GoogleSignInButton(authManager: authManager)
+                .padding(.bottom, 50)
+        }
+        .padding()
     }
 }

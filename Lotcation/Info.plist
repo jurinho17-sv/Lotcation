@@ -2,11 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>NotoSans-VariableFont_wdth,wght.ttf</string>
-		<string>WinkySans-VariableFont_wght.ttf</string>
-		<string>WinkySans-Italic-VariableFont_wght.ttf</string>
-	</array>
+    <key>UIAppFonts</key>
+    <array>
+        <string>NotoSans-VariableFont_wdth,wght.ttf</string>
+        <string>WinkySans-VariableFont_wght.ttf</string>
+        <string>WinkySans-Italic-VariableFont_wght.ttf</string>
+    </array>
+    
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleTypeRole</key>
+            <string>Editor</string>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>com.googleusercontent.apps.601560301211-k7uqv0rph1c0t9kiu6e2eslrg1ba4ufj</string>
+            </array>
+        </dict>
+    </array>
+    
+
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Lotcation needs your location to find nearby parking options in Pasadena.</string>
+    
+    <key>GMSAPIKey</key>
+    <string>AIzaSyBZKfGsXD5w1zgBMdFFoK4mUno3Fn4_ASw</string>
+    
 </dict>
 </plist>

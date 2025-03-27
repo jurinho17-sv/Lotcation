@@ -2,6 +2,10 @@ import SwiftUI
 
 @main
 struct LotcationApp: App {
+    
+    // connect AppDelegate.swift
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     @State private var showSplash = true
     
     init() {

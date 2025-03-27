@@ -16,10 +16,10 @@ Finding parking in busy urban areas can be stressful and distracting for drivers
 
 ## Current Status
 
-- Initial target market: Santa Monica in Los Angeles County
+- Initial target market: Pasadena, California
 - Future planned expansion: broader Los Angeles County and San Francisco Bay Area
 - Custom splash screen animation implemented
 - Main interface with greeting and parking finder buttons complete
 
 ---
-*Lotcation is currently in active development.*
+*Lotcation is currently in active development. (Updated Mar 26th 2025)*
