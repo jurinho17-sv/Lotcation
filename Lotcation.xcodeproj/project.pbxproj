@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3FA493482D953B93004C7EBC /* APIKeys.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3FA493472D953B93004C7EBC /* APIKeys.xcconfig */; };
 		3FCA11EC2D93BC5E00526227 /* client_601560301211-k7uqv0rph1c0t9kiu6e2eslrg1ba4ufj.apps.googleusercontent.com.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FCA11EB2D93BC5E00526227 /* client_601560301211-k7uqv0rph1c0t9kiu6e2eslrg1ba4ufj.apps.googleusercontent.com.plist */; };
 		3FCA11EF2D93BE7900526227 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 3FCA11EE2D93BE7900526227 /* GoogleSignIn */; };
 		3FCA11F12D93BE7900526227 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3FCA11F02D93BE7900526227 /* GoogleSignInSwift */; };
@@ -33,6 +34,7 @@
 		3F21D72A2D8E3DBD0022688C /* Lotcation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lotcation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F21D73A2D8E3DBE0022688C /* LotcationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LotcationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F21D7442D8E3DBE0022688C /* LotcationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LotcationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FA493472D953B93004C7EBC /* APIKeys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = APIKeys.xcconfig; sourceTree = "<group>"; };
 		3FCA11EB2D93BC5E00526227 /* client_601560301211-k7uqv0rph1c0t9kiu6e2eslrg1ba4ufj.apps.googleusercontent.com.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "client_601560301211-k7uqv0rph1c0t9kiu6e2eslrg1ba4ufj.apps.googleusercontent.com.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +99,7 @@
 		3F21D7212D8E3DBD0022688C = {
 			isa = PBXGroup;
 			children = (
+				3FA493462D953ADE004C7EBC /* Config */,
 				3FCA11EB2D93BC5E00526227 /* client_601560301211-k7uqv0rph1c0t9kiu6e2eslrg1ba4ufj.apps.googleusercontent.com.plist */,
 				3F21D72C2D8E3DBD0022688C /* Lotcation */,
 				3F21D73D2D8E3DBE0022688C /* LotcationTests */,
@@ -113,6 +116,14 @@
 				3F21D7442D8E3DBE0022688C /* LotcationUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		3FA493462D953ADE004C7EBC /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				3FA493472D953B93004C7EBC /* APIKeys.xcconfig */,
+			);
+			path = Config;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -241,6 +252,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FA493482D953B93004C7EBC /* APIKeys.xcconfig in Resources */,
 				3FCA11EC2D93BC5E00526227 /* client_601560301211-k7uqv0rph1c0t9kiu6e2eslrg1ba4ufj.apps.googleusercontent.com.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
