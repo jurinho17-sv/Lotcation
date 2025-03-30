@@ -1,20 +1,12 @@
 import UIKit
-/**
- Future Integration Points
- - Google Places API integration
- - real backend service connection
- - User authentication integration
- */
-
-// I will update later
-// import GoogleMaps
-// import GooglePlaces
+// Remove: import GoogleMaps
+// Remove: import GooglePlaces
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        // Future Enhancement: Initialize Google Maps SDK
+        // GMSServices.provideAPIKey(APIConfig.googleMapsAPIKey)
         
-        
-        // initialize app settings or configurations
         print("Lotcation starting up!")
         
         return true

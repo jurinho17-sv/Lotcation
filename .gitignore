@@ -6,3 +6,4 @@ Config/APIKeys.xcconfig
 *.xcworkspace
 xcuserdata/
 
+.env
