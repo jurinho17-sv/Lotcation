@@ -49,40 +49,50 @@ struct ContentView: View {
         }
     }
     
-    // Get time-based message
+    // Get time-based message with consistent pattern
     private var timeMessage: String {
         let hour = Calendar.current.component(.hour, from: Date())
         
+        // Using consistent pattern of hour ranges with clear boundaries
+        // Late night/early morning (10PM-5AM)
         if hour >= 22 || hour < 5 {
             return "Drive safely, \(userName)"
         }
-        // Early morning
+        // Early morning (5AM-7AM)
         else if hour >= 5 && hour < 7 {
             return "Early bird, \(userName)"
         }
-        // Morning coffee time
+        // Morning coffee time (7AM-9AM)
         else if hour >= 7 && hour < 9 {
             return "Need coffee, \(userName)"
         }
-        // Standard morning
-        else if hour < 12 {
+        // Standard morning (9AM-12PM)
+        else if hour >= 9 && hour < 12 {
             return "Good morning, \(userName)"
         }
-        // Lunch time
-        else if hour == 12 {
+        // Lunch time (12PM-1PM)
+        else if hour >= 12 && hour < 13 {
             return "Lunch time, \(userName)"
         }
-        // Post-lunch slump
+        // Post-lunch slump (1PM-3PM)
         else if hour >= 13 && hour < 15 {
             return "Afternoon slump, \(userName)"
         }
-        // Rush hour special message
+        // Afternoon (3PM-5PM)
+        else if hour >= 15 && hour < 17 {
+            return "Good afternoon, \(userName)"
+        }
+        // Rush hour special message (5PM-7PM)
         else if hour >= 17 && hour < 19 {
             return "Rush hour survivor, \(userName)"
         }
-        // Standard evening
-        else {
+        // Evening (7PM-10PM)
+        else if hour >= 19 && hour < 22 {
             return "Good evening, \(userName)"
+        }
+        // Final catch-all (shouldn't reach here with above conditions)
+        else {
+            return "Hello, \(userName)" // Fallback for any unexpected cases
         }
     }
     

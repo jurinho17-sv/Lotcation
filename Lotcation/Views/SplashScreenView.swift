@@ -1,3 +1,6 @@
+// Ju Ho Kim (2025 Snap Engineering Academy applicant)
+// Thanks for watching this demo
+
 import SwiftUI
 
 struct SplashScreenView: View {
@@ -56,7 +59,7 @@ struct SplashScreenView: View {
                     }
                 }
                 
-                // Static "Lotcation" in final position - now vertically centered
+                // Static "Lotcation" in final position - vertically centered
                 Text("Lotcation")
                     .font(.custom("Noto Sans", size: fontSize).bold())
                     .foregroundColor(.black)

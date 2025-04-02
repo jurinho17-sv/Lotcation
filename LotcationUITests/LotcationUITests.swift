@@ -1,10 +1,3 @@
-//
-//  LotcationUITests.swift
-//  LotcationUITests
-//
-//  Created by Justin Kim on 3/21/25.
-//
-
 import XCTest
 
 final class LotcationUITests: XCTestCase {

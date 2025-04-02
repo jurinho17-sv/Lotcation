@@ -35,6 +35,7 @@
 		3F21D73A2D8E3DBE0022688C /* LotcationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LotcationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F21D7442D8E3DBE0022688C /* LotcationUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LotcationUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FA493472D953B93004C7EBC /* APIKeys.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = APIKeys.xcconfig; sourceTree = "<group>"; };
+		3FB119BF2D9DEDCC00BEE0E4 /* CurrentStatus-2025-04-02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CurrentStatus-2025-04-02.png"; sourceTree = "<group>"; };
 		3FCA11EB2D93BC5E00526227 /* client_601560301211-k7uqv0rph1c0t9kiu6e2eslrg1ba4ufj.apps.googleusercontent.com.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "client_601560301211-k7uqv0rph1c0t9kiu6e2eslrg1ba4ufj.apps.googleusercontent.com.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +100,7 @@
 		3F21D7212D8E3DBD0022688C = {
 			isa = PBXGroup;
 			children = (
+				3FB119BE2D9DED2200BEE0E4 /* images */,
 				3FA493462D953ADE004C7EBC /* Config */,
 				3FCA11EB2D93BC5E00526227 /* client_601560301211-k7uqv0rph1c0t9kiu6e2eslrg1ba4ufj.apps.googleusercontent.com.plist */,
 				3F21D72C2D8E3DBD0022688C /* Lotcation */,
@@ -124,6 +126,14 @@
 				3FA493472D953B93004C7EBC /* APIKeys.xcconfig */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		3FB119BE2D9DED2200BEE0E4 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				3FB119BF2D9DEDCC00BEE0E4 /* CurrentStatus-2025-04-02.png */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

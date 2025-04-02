@@ -1,10 +1,3 @@
-//
-//  LotcationTests.swift
-//  LotcationTests
-//
-//  Created by Justin Kim on 3/21/25.
-//
-
 import Testing
 @testable import Lotcation
 
